@@ -37,3 +37,5 @@ class Api{
         return fetch(`${this.path}${this.name}/delete/${id}`,{method: "DELETE"})
     }
 }
+
+export default Api;

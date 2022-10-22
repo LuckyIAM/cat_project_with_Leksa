@@ -1,9 +1,21 @@
+import Api from "./api.js"  //./ - указатель на текущею папку
+
+let user = document.cookie;
+console.log('+',user);
+if(!user){
+    user = prompt("Пользователь не наиден, укажите имя пользователья","LuckyIAM");
+}else{
+    user = user.split("=")[1]
+}
+document.cookie = `user = ${user}`
+
+const api = new Api('LuckyIAM');
 const container = document.querySelector(".container");
 const btn = document.querySelector(".dashboard").firstElementChild;
 const popupList = document.querySelectorAll(".popup");
 const popBox = document.querySelector(".popup-wrapper");
 
-fetch("https://sb-cats.herokuapp.com/api/2/lekso4ka/show")
+api.getCats()
     .then(res => res.json())
     .then(data => {
         console.log(data);
@@ -16,7 +28,6 @@ fetch("https://sb-cats.herokuapp.com/api/2/lekso4ka/show")
         }
         // showPopup(Array.from(popupList), "info", data.message);
     });
-
 
 
 popupList.forEach(p => {
