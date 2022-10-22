@@ -37,3 +37,16 @@ const showPopup = (list, type, content) => {
     el.classList.add("active");
     el.parentElement.classList.add("active");
 }
+
+const addCat = e =>{
+    e.preventDefault();
+    let body = {}; //{name: 'Vasea', id: 1, ...}
+    for(let i=0; i<e.target.elements.lenght; i++){
+        let el = e.target.elements[i];
+        console.log(el);
+        if(el.name){
+            body[el.name]= el.value
+        }
+    }
+    console.log(body);
+}

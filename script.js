@@ -2,18 +2,22 @@ import Api from "./api.js"  //./ - указатель на текущею пап
 
 let user = document.cookie;
 console.log('+',user);
+
 if(!user){
     user = prompt("Пользователь не наиден, укажите имя пользователья","LuckyIAM");
+    document.cookie = `user = ${user}`
 }else{
     user = user.split("=")[1]
 }
-document.cookie = `user = ${user}`
+
 
 const api = new Api('LuckyIAM');
 const container = document.querySelector(".container");
 const btn = document.querySelector(".dashboard").firstElementChild;
 const popupList = document.querySelectorAll(".popup");
 const popBox = document.querySelector(".popup-wrapper");
+const addForm = document.forms.add;
+addForm.addEventListener('submit', addCat)
 
 api.getCats()
     .then(res => res.json())
