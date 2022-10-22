@@ -1,3 +1,5 @@
+
+
 const createCard = (data, parent, arr) => {
     const card = document.createElement("div");
     card.className = "card";
@@ -38,15 +40,28 @@ const showPopup = (list, type, content) => {
     el.parentElement.classList.add("active");
 }
 
-const addCat = e =>{
+const addCat = (e, api, popupList) =>{
     e.preventDefault();
     let body = {}; //{name: 'Vasea', id: 1, ...}
-    for(let i=0; i<e.target.elements.lenght; i++){
+    for(let i=0; i<e.target.elements.length; i++){
         let el = e.target.elements[i];
-        console.log(el);
         if(el.name){
-            body[el.name]= el.value
+            if(el.type === 'checkbox'){
+                body[el.name]= el.checked;  
+            }else{
+                body[el.name]= el.value
+            }
+            
         }
     }
     console.log(body);
+    api.addCat(body)
+    .then(rest => rest.json())
+    .then(data => {
+        console.log(data.message);
+        if(data.message === 'ok'){
+            e.target.reset();
+        }
+        showPopup(popupList, 'info', data.message);
+    })
 }
